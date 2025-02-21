@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap" rel="stylesheet">
     <title>Video Gallery</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="{{asset('css/image-gallery.css')}}">
+    <link rel="stylesheet" href="{{asset('css/gallery-images.css')}}">
 </head>
 <body>
     <header class="navbar">

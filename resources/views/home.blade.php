@@ -104,13 +104,6 @@
     <section class="hero-section">
     <div class="hero-overlay"></div> <!-- Overlay Added -->
     <h1>BrickMMO Media Hub: <br> Building Smart Cities, One Innovation at a Time!</h1>
-    <p class="scroll-text">Scroll for more</p>
-    <div class="arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="31" viewBox="0 0 21 31" fill="none">
-            <path d="M10.5013 30.375V1M10.5013 30.375C7.81706 30.375 2.80216 24.5167 0.917969 23.0313M10.5013 30.375C13.1855 30.375 18.2004 24.5167 20.0846 23.0312" 
-            stroke="#FFFBFB" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
 </section>
 
 
