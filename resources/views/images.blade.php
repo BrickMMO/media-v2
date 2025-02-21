@@ -6,8 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap" rel="stylesheet">
     <title>Video Gallery</title>
-    @vite(['resources/css/app.css']) 
-    @vite(['resources/css/gallery-images.css']) 
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/image-gallery.css')}}">
 </head>
 <body>
     <header class="navbar">

@@ -6,8 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap" rel="stylesheet">
     <title>Our Collections</title>
-    @vite(['resources/css/app.css']) 
-    @vite(['resources/css/search-results.css']) 
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/search-results.css')}}">
 </head>
 <body>
     <header class="navbar">
