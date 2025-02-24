@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <title>Home Page</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/home.css')}}">
@@ -118,6 +119,7 @@
         <form action="{{ route('search') }}" method="GET" class="search-bar">
             <!-- Media Type Selector -->
             <select name="type" id="mediaTypeSelect" class="media-type-selector" style="padding: 12px 20px; font-size: 18px; min-width: 150px; margin-right: 10px; border: none;">
+                <option value="image">Media Type</option>    
                 <option value="image">Images</option>
                 <option value="video">Videos</option>
                 <option value="audio">Audios</option>
@@ -125,14 +127,14 @@
 
             <!-- Tag Dropdown -->
             <select name="tag" id="tagDropdown" class="search-category" style="padding: 12px 20px; font-size: 18px; min-width: 150px; margin-right: 10px;">
-                <option value="">Select Category</option>
+                <option value="">Choose Category</option>
                 @foreach($tags as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             </select>
 
             <!-- Search Button -->
-            <button type="submit" class="search-button" style="padding: 12px 25px; font-size: 18px;">Search</button>
+            <button type="submit" class="search-button" style="padding: 12px 25px; font-size: 18px;">Start Searching</button>
         </form>
     </div>
 </section>

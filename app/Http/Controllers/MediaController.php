@@ -11,4 +11,5 @@ class MediaController extends Controller
         $media = Media::all(); // Fetch all data from the 'media' table
         return view('media.index', ['data' => $media]);
     }
+    
 }

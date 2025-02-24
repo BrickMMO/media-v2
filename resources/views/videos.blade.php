@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -41,12 +42,6 @@
             <h2 class="about-title">VIDEO GALLERY</h2>
         </div>
     </section>
-    <section class="disclaimer">
-        <p>
-            <strong>Disclaimer:</strong> The images, audios, and video footage provided in this gallery are available for media download and use, and must be credited to <strong>BrickMMO</strong> or the photographer specified in the image caption. They cannot be used for advertising, marketing, or to imply endorsement.
-        </p>
-    </section>
-
     <section class="video-grid">
     @foreach($data as $index => $item)
     <div class="video-container" onclick="openModal({{ $index }})">
@@ -131,35 +126,67 @@
         let currentIndex = 0;
 
         function openModal(index) {
-            currentIndex = index;
-            let modalVideo = document.getElementById('modalVideo');
+    currentIndex = index;
+    let modalVideo = document.getElementById('modalVideo');
 
-            // Ensure video loads correctly inside an iframe
-            let videoUrl = `https://drive.google.com/file/d/${videos[index].google_id}/preview`;
-            modalVideo.src = videoUrl;
+    // Ensure video loads correctly inside an iframe
+    let videoUrl = `https://drive.google.com/file/d/${videos[index].google_id}/preview`;
+    modalVideo.src = videoUrl;
 
-            // Set modal title & details
-            document.getElementById('modalTitle').innerText = videos[index].name;
-            document.getElementById('modalDetails').innerHTML = `
-                <div class="modal-info">
-                    <p><strong>Approval Status:</strong> ${videos[index].approved == 1 ? '✅ Approved' : '❌ Not Approved'}</p>
-                    <p><strong>Type:</strong> ${videos[index].type}</p>
-                    <p><strong>Uploaded By:</strong> ${videos[index].first} ${videos[index].last}</p>
-                    <p><strong>Email:</strong> <a href="mailto:${videos[index].email}">${videos[index].email}</a></p>
-                    <p><strong>Uploaded On:</strong> ${new Date(videos[index].created_at).toLocaleDateString()}</p>
-                </div>
-            `;
+    // Set modal title & details
+    document.getElementById('modalTitle').innerText = videos[index].name;
+    document.getElementById('modalDetails').innerHTML = `
+        <div class="modal-info">
+            <p><strong>Approval Status:</strong> ${videos[index].approved == 1 ? '✅ Approved' : '❌ Not Approved'}</p>
+            <p><strong>Type:</strong> ${videos[index].type}</p>
+            <p><strong>Uploaded By:</strong> ${videos[index].first} ${videos[index].last}</p>
+            <p><strong>Email:</strong> <a href="mailto:${videos[index].email}">${videos[index].email}</a></p>
+            <p><strong>Uploaded On:</strong> ${new Date(videos[index].created_at).toLocaleDateString()}</p>
+        </div>
+    `;
 
-            // Set download link correctly
-            let downloadBtn = document.getElementById('downloadLink');
-            let downloadUrl = `https://drive.google.com/uc?export=download&id=${videos[index].google_id}`;
-            let videoName = `${videos[index].name.replace(/\s+/g, '_')}.mp4`;
+    let videoDownloadUrl = `https://drive.google.com/uc?export=download&id=${videos[index].google_id}`;
+    let videoName = `${videos[index].name.replace(/\s+/g, '_')}.mp4`;
 
-            downloadBtn.href = downloadUrl;
-            downloadBtn.download = videoName;
+    let downloadBtn = document.getElementById('downloadLink');
 
-            document.getElementById('videoModal').style.display = 'flex';
-        }
+    // Remove any previous event listeners before adding a new one
+    downloadBtn.replaceWith(downloadBtn.cloneNode(true));
+    downloadBtn = document.getElementById('downloadLink');
+
+    // Attach event listener for tracking and download
+    downloadBtn.onclick = function(event) {
+        event.preventDefault();
+
+        let mediaId = videos[currentIndex].id; // Get media ID
+
+        // Track download in the database before downloading
+        fetch('/track-download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ media_id: mediaId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message); // Log response
+
+            // Proceed with downloading the file
+            let link = document.createElement('a');
+            link.href = videoDownloadUrl;
+            link.download = videoName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('Error tracking download:', error));
+    };
+
+    document.getElementById('videoModal').style.display = 'flex';
+}
+
     
         function closeModal() { 
             document.getElementById('modalVideo').src = ""; // Reset video source
