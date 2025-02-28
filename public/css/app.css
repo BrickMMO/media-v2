@@ -179,3 +179,108 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
+
+
+/* Responsive Styles for Mobile View */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        height: 80px;
+        padding: 20px;
+    }
+
+    .logo img {
+        width: 60%;
+    }
+
+    .menu-icon img {
+        width: 30px;
+    }
+
+    /* Side Menu */
+    .side-menu {
+        width: 250px;
+        padding-top: 50px;
+    }
+
+    .side-menu ul li {
+        padding: 12px 20px;
+    }
+
+    .side-menu ul li a {
+        font-size: 16px;
+    }
+
+    .close-menu {
+        font-size: 26px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        height: auto;
+        padding: 40px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-container h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .email {
+        font-size: 18px;
+        margin-top: 10px;
+        position: static;
+    }
+
+    .contact-details {
+        padding: 10px 20px;
+    }
+
+    .contact-title,
+    .contact-info {
+        font-size: 18px;
+    }
+
+    /* Footer Section */
+    .footer-section {
+        height: auto;
+        flex-direction: column;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .footer-container {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .footer-logo {
+        width: 100px;
+        height: auto;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .footer-link {
+        font-size: 16px;
+    }
+
+    .footer-copy {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+}

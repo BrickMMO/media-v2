@@ -75,16 +75,6 @@ body {
     z-index: 1;
 }
 
-.disclaimer {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-}
 
 .overlay {
     position: absolute;
@@ -222,3 +212,101 @@ body {
     align-self: flex-start;
 }
 
+@media (max-width: 768px) {
+    /* Adjust Body for Mobile */
+    body {
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    /* Audio Grid - Adjusting to Single Column */
+    .audio-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .audio-container {
+        height: 200px;
+    }
+
+    /* About Section */
+    .about-section {
+        height: 500px;
+    }
+
+    .about-video {
+        width: 100%;
+        height: 100%;
+    }
+
+    .about-title {
+        font-size: 48px;
+        letter-spacing: 10px;
+        line-height: 60px;
+    }
+
+    /* Overlay on Audio Containers */
+    .overlay {
+        font-size: 14px;
+    }
+
+    .overlay .circle {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+
+    /* Modal Adjustments */
+    .modal {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .modal-content {
+        flex-direction: column;
+        width: 90%;
+        padding: 15px;
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    .modal img {
+        width: 100%;
+        max-height: 50vh;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    .close, .prev, .next {
+        top: 100px;
+        padding: 8px;
+    }
+
+    .close {
+        left: 20px;
+        font-size: 20px;
+    }
+
+    .prev, .next {
+        font-size: 18px;
+    }
+
+    /* Loader */
+    .loader {
+        width: 30px;
+        height: 30px;
+        border-width: 3px;
+    }
+
+    /* Download Button */
+    .download-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+        border-radius: 15px;
+    }
+}

@@ -1,6 +1,7 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -40,12 +41,6 @@
             <h2 class="about-title">OUR COLLECTIONS</h2>
         </div>
     </section>
-    <section class="disclaimer">
-        <p>
-            <strong>Disclaimer:</strong> The images, audios, and video footage provided in this gallery are available for media download and use, and must be credited to <strong>BrickMMO</strong> or the photographer specified in the image caption. They cannot be used for advertising, marketing, or to imply endorsement.
-        </p>
-    </section>
-
     <section class="video-grid">
         <div class="media-grid">
             @forelse ($mediaItems as $index => $media)
@@ -217,19 +212,71 @@
     function prevMedia() { if (currentIndex > 0) openModal(currentIndex - 1); }
         function nextMedia() { if (currentIndex < mediaItems.length - 1) openModal(currentIndex + 1); }
 
-    function downloadMedia(fileId, fileName, fileType) {
-        let formattedFileName = fileName.replace(/\s+/g, '_') + '.' + (fileType === 'image' ? 'jpg' : fileType === 'video' ? 'mp4' : 'mp3');
-        
-        // Force Google Drive to download the file
-        let mediaUrl = `https://drive.google.com/u/0/uc?id=${fileId}&export=download`;
+        function downloadMedia(fileId, fileName, fileType) {
+    let formattedFileName = fileName.replace(/\s+/g, '_') + '.' + (fileType === 'image' ? 'jpg' : fileType === 'video' ? 'mp4' : 'mp3');
+    let mediaUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    
+    let mediaId = mediaItems[currentIndex]?.id;
+    if (!mediaId) {
+        console.error('Error: No media ID found.');
+        return;
+    }
 
+    // Prevent multiple tracking requests
+    if (downloadMedia.called) return;
+    downloadMedia.called = true; // Flag to prevent duplicate calls
+
+    // Track download in the database
+    fetch('/track-download', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ media_id: mediaId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`Download tracked for ${fileType}: ${fileName}`);
+
+        // Proceed with downloading the file
         let link = document.createElement('a');
         link.href = mediaUrl;
         link.download = formattedFileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    }
+
+        // Reset flag after short delay (prevents duplicate downloads on multiple modal openings)
+        setTimeout(() => {
+            downloadMedia.called = false;
+        }, 1000);
+    })
+    .catch(error => {
+        console.error(`Error tracking ${fileType} download:`, error);
+        downloadMedia.called = false; // Reset flag if an error occurs
+    });
+}
+
+// Ensure the download button is only bound ONCE
+document.addEventListener('DOMContentLoaded', function() {
+    let downloadBtn = document.getElementById('downloadLink');
+
+    // Remove existing event listeners before adding a new one (prevents duplication)
+    downloadBtn.replaceWith(downloadBtn.cloneNode(true));
+    downloadBtn = document.getElementById('downloadLink');
+
+    downloadBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        let mediaItem = mediaItems[currentIndex];
+        if (!mediaItem) {
+            console.error('Error: No media item found.');
+            return;
+        }
+        downloadMedia(mediaItem.google_id, mediaItem.name, mediaItem.type);
+    });
+});
+
     
 </script>
 

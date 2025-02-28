@@ -359,3 +359,157 @@
     color: #F2DADA;
     line-height: 34px;
 }
+
+@media (max-width: 768px) {
+    /* General Adjustments */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* About Section */
+    .about-section {
+        height: 500px;
+        padding: 20px;
+    }
+
+    .about-title {
+        font-size: 48px;
+        letter-spacing: 5px;
+        line-height: 60px;
+    }
+
+    /* Who We Are Section */
+    .who-we-are-section {
+        flex-direction: column;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .who-we-are-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .who-we-are-images {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .who-we-are-images img {
+        position: static;
+        width: 48%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .who-we-are-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .who-we-are-title {
+        font-size: 36px;
+    }
+
+    .who-we-are-text,
+    .who-we-are-mission {
+        font-size: 16px;
+    }
+
+    /* Key Features Section */
+    .key-features-section {
+        height: auto;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .key-features-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .key-features-title {
+        font-size: 36px;
+    }
+
+    .key-features-list {
+        font-size: 16px;
+    }
+
+    /* How It Works Section */
+    .how-it-works-section {
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .how-it-works-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .how-it-works-title {
+        font-size: 36px;
+    }
+
+    .how-it-works-description {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    /* Why BrickMMO Section */
+    .why-brickmmo-section {
+        height: auto;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .why-brickmmo-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .why-brickmmo-title {
+        font-size: 36px;
+    }
+
+    .why-brickmmo-description,
+    .why-brickmmo-features {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    /* Join Community Section */
+    .join-community-section {
+        height: auto;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .join-community-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .join-community-title {
+        font-size: 36px;
+    }
+
+    .join-community-description,
+    .join-community-contact {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    /* Adjust Images */
+    .key-features-bg,
+    .why-brickmmo-bg,
+    .join-community-bg {
+        width: 100%;
+        height: auto;
+        opacity: 0.5;
+    }
+}

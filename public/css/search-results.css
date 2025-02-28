@@ -84,7 +84,7 @@ body {
     /* About Us Text */
     .about-title {
         color: white;
-        font-size: 90px;
+        font-size: 75px;
         font-family: 'PT Serif', serif;
         font-weight: 200;
         line-height: 90px;
@@ -92,17 +92,6 @@ body {
         text-align: center;
         z-index: 1;
     }
-
-.disclaimer {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-}
 
 .media-grid {
     display: grid;
@@ -312,4 +301,145 @@ body {
     align-items: center;
     width: 90%;
     color: #fff;
+}
+
+@media (max-width: 768px) {
+    /* Adjust Body */
+    body {
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    /* Marquee Animation Speed Adjustments */
+    @keyframes marquee {
+        0%   { transform: translateX(100%); }
+        100% { transform: translateX(-200%); }
+    }
+
+    .marquee {
+        animation-duration: 15s; /* Slower scrolling */
+    }
+
+    /* Adjusting Grid Layout for Small Screens */
+    .media-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns instead of 3 */
+        gap: 10px;
+        padding: 20px;
+    }
+
+    /* Reduce Video Container Size */
+    .video-container {
+        height: 200px; /* Smaller height for mobile */
+    }
+
+    .video-thumbnail {
+        height: 100%;
+        border-radius: 5px;
+    }
+
+    /* About Section - Reduce Size */
+    .about-section {
+        height: 500px;
+    }
+
+    .about-video {
+        width: 100%;
+        height: 100%;
+    }
+
+    .about-title {
+        font-size: 48px;
+        letter-spacing: 5px;
+        line-height: 60px;
+    }
+
+    /* Modal Adjustments */
+    .modal {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .modal-content {
+        flex-direction: column;
+        width: 90%;
+        padding: 15px;
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    .modal iframe {
+        width: 100%;
+        max-height: 50vh;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    .close, .prev, .next {
+        top: 100px;
+        padding: 8px;
+    }
+
+    .close {
+        left: 20px;
+        font-size: 20px;
+    }
+
+    .prev, .next {
+        font-size: 18px;
+    }
+
+    /* Download Button */
+    .download-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+        border-radius: 15px;
+    }
+
+    /* Media Containers */
+    .media-container {
+        width: 100%;
+        height: 180px;
+    }
+
+    .media-container img,
+    .media-container iframe,
+    .media-container audio {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* No Media Placeholder */
+    .no-media-container {
+        padding: 30px;
+    }
+
+    .no-media-image {
+        width: 150px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .no-media-title {
+        font-size: 20px;
+    }
+
+    .no-media-text {
+        font-size: 16px;
+    }
+
+    /* Back Button */
+    .back-home-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* Adjust Marquee Speed */
+    .marquee {
+        font-size: 14px;
+        animation-duration: 12s;
+    }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -39,11 +40,6 @@
         <div class="about-overlay">
             <h2 class="about-title">AUDIO GALLERY</h2>
         </div>
-    </section>
-    <section class="disclaimer">
-        <p>
-            <strong>Disclaimer:</strong> The images, audios, and video footage provided in this gallery are available for media download and use, and must be credited to <strong>BrickMMO</strong> or the photographer specified in the image caption. They cannot be used for advertising, marketing, or to imply endorsement.
-        </p>
     </section>
 
     <section class="audio-grid">
@@ -137,15 +133,48 @@
                 </div>
             `;
 
-            let audioUrl = `https://drive.google.com/uc?export=download&id=${audios[index].google_id}`;
-            let audioName = `${audios[index].name.replace(/\s+/g, '_')}.mp4`; 
+            let audioDownloadUrl = `https://drive.google.com/uc?export=download&id=${audios[index].google_id}`;
+            let audioName = `${audios[index].name.replace(/\s+/g, '_')}.mp3`;
 
             let downloadBtn = document.getElementById('downloadLink');
-            downloadBtn.href = audioUrl;
-            downloadBtn.download = audioName;
+
+            // Remove previous event listeners before adding a new one
+            downloadBtn.replaceWith(downloadBtn.cloneNode(true));
+            downloadBtn = document.getElementById('downloadLink');
+
+            // Attach event listener for tracking and download
+            downloadBtn.onclick = function(event) {
+                event.preventDefault();
+
+                let mediaId = audios[currentIndex].id; // Get media ID
+
+                // Track download in the database before downloading
+                fetch('/track-download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ media_id: mediaId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Log response
+
+                    // Proceed with downloading the file
+                    let link = document.createElement('a');
+                    link.href = audioDownloadUrl;
+                    link.download = audioName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(error => console.error('Error tracking download:', error));
+            };
 
             document.getElementById('audioModal').style.display = 'flex';
         }
+
         function hideLoader(iframe) {
             let loader = iframe.previousElementSibling; // Get the loader div
             if (loader) loader.style.display = 'none'; // Hide the loader
